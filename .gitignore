@@ -18,3 +18,5 @@
 *.synctex*
 Tmp
 Tmp/*
+endnote.Data
+Thesis.pdf
