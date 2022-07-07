@@ -1,0 +1,12 @@
+del *.aux
+del *.toc
+del *.lon
+del *.lor
+del *.ilg
+del *.idx
+del *.ind
+del *.out
+del *.log
+del *.exa
+del *.fdb*
+del *.fls
