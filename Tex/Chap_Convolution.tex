@@ -113,5 +113,84 @@
             \caption{卷积运算中的偏置}
             \label{fig:5}
         \end{figure}
+    
+        \subsubsection{填充（Padding）}
         
+        在进行卷积层的处理之前，有时要向输入数据的周围填入固定的数据（比如0等），这称为填充，是卷积运算中经常会用到的处理。如图\ref{fig:6}所示。
         
+        \begin{figure}[!htbp]
+            \centering
+            \includegraphics[width=0.90\textwidth]{conv_6}
+            \caption{卷积运算中的填充}
+            \label{fig:6}
+        \end{figure}
+    
+        从图中可以看出，通过填充，大小为$(4, 4)$的输入数据变成了$(6, 6)$的形状。然后，应用大小为$(3, 3)$的滤波器，生成了大小为$(4, 4)$的输出数据。
+        
+        使用填充主要是为了调整输出的大小。比如，对大小为$(4, 4)$的输入数据应用$(3, 3)$的滤波器时，输出大小变为$(2, 2)$，相当于输出大小比输入大小缩小了2个元素。如果每次进行卷积运算都会缩小空间，那么在某个时刻输出大小就有可能变为1，导致无法再应用卷积运算。为了避免出现这样的情况，就要使用填充。
+        
+        \subsubsection{步幅（stride）}
+        
+        应用滤波器的位置间隔称为步幅（stride）。之前的例子中步幅都是1，如果将步幅设为2，则如图\ref{fig:7}所示，应用滤波器的窗口的间隔变为2个元素。
+        
+        \begin{figure}[!htbp]
+            \centering
+            \includegraphics[width=0.90\textwidth]{conv_7}
+            \caption{步幅为2的卷积运算}
+            \label{fig:7}
+        \end{figure}
+    
+        如图，对输入大小为$(7, 7)$的数据，以步幅2应用了滤波器。通过将步幅设为2，输出大小变为$(3, 3)$。
+        
+        综上，\uwave{增大步幅后，输出大小会变小。而增大填充后，输出大小会变大}。
+        
+        \subsubsection{输出大小计算公式}
+        
+        假设输入大小为$(H, W)$，滤波器大小为$(FH, FW)$，输出大小为$(OH, OW)$，填充为$P$，步幅为$S$。此时，输出大小可通过式\ref{eq:4}进行计算。
+        
+        \begin{equation}
+            \begin{aligned}
+                OH &={ {H + 2P - FH} \over {S}} + 1 \\
+                OW &={ {W + 2P - FW} \over {S}} + 1
+            \end{aligned}
+            \label{eq:4}
+        \end{equation}
+
+    \subsection{三维数据的卷积运算}   
+        
+        之前的卷积运算的例子都是以有高、长方向的2维形状为对象的。但是，图像是3维数据，除了高、长方向之外，还需要处理\textbf{通道方向}。
+        
+        需要注意的是，在3维数据的卷积运算中，输入数据和滤波器的通道数要设为相同的值。其计算方法如图\ref{fig:8}所示。 
+        
+        \begin{figure}[!htbp]
+            \centering
+            \includegraphics[width=0.90\textwidth]{conv_8}
+            \caption{三维卷积运算}
+            \label{fig:8}
+        \end{figure}
+    
+        通道方向上有多个特征图时，会按通道进行输入数据和滤波器的卷积运算，并将结果相加，从而得到输出。
+        
+        将数据和滤波器结合长方体的方块来考虑，3维数据的卷积运算会很容易理解。方块是如图\ref{fig:9}所示的3维长方体。把3维数据表示为多维数组时，书写顺序为$(channel, height, width)$。
+        
+        \begin{figure}[!htbp]
+            \centering
+            \includegraphics[width=0.90\textwidth]{conv_9}
+            \caption{用方块理解三维卷积}
+            \label{fig:9}
+        \end{figure}
+    
+        在这个例子中，数据输出是1张特征图。所谓1张特征图，换句话说，就是通道数为1的特征图。那么，如果要在通道方向上也拥有多个卷积运算的输出，该怎么做呢？为此，就需要用到多个滤波器（权重）。用图表示的话，如图\ref{fig:10}所示。
+        
+        \begin{figure}[!htbp]
+            \centering
+            \includegraphics[width=0.90\textwidth]{conv_10}
+            \caption{基于多个滤波器的卷积运算}
+            \label{fig:10}
+        \end{figure}
+        
+        通过应用FN个滤波器，输出特征图也生成了FN个。如果将这FN个特征图汇集在一起，就得到了形状为$(FN, OH, OW)$的方块。将这个方块传给下一层，就是CNN的处理流。
+        
+        卷积运算中（和全连接层一样）存在偏置。每个通道只有一个偏置。这里，偏置的形状是$(FN, 1, 1)$，滤波器的输出结果的形状是$(FN, OH, OW)$。这两个方块相加时，要对滤波器的输出结果$(FN, OH, OW)$按通道加上相同的偏置值。
+        
+            

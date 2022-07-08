@@ -10,3 +10,9 @@ del *.log
 del *.exa
 del *.fdb*
 del *.fls
+del *.bbl
+del *.enl
+del *.blg
+del *.lof
+del *.lot
+del *.synctex*
