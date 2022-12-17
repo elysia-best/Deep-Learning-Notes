@@ -160,10 +160,6 @@ LatexCommand tableofcontents
 机器学习和深度学习综述
 \end_layout
 
-\begin_layout Standard
-这部分内容摘选自百度出品的《零基础实践深度学习》一书。
-\end_layout
-
 \begin_layout Section
 人工智能、机器学习、深度学习的关系
 \end_layout
@@ -1561,6 +1557,301 @@ name "fig:1.10"
 \begin_layout Standard
 另一方面，以深度学习为基础的人工智能技术，在升级改造众多的传统行业领域，存在极其广阔的应用场景。人工智能技术不仅可在众多行业中落地应用（广度），同时，在部分行业
 （如安防、遥感、互联网、金融、工业等）已经实现了市场化变现和高速增长（深度），为社会贡献了巨大的经济价值。
+\end_layout
+
+\begin_layout Chapter
+深度学习概念简介
+\end_layout
+
+\begin_layout Section
+机器学习基本概念
+\end_layout
+
+\begin_layout Standard
+由于深度学习是一种特殊的机器学习方法，一般的机器学习概念对于深度学习也适用。为了能够更好地对深度学习的一些概念做阐述，这里把机器学习的概念作 为独立的一节，希望
+能够帮助读者更好地理解深度学习的基本概念。
+\end_layout
+
+\begin_layout Subsection
+机器学习的主要任务
+\end_layout
+
+\begin_layout Standard
+首先让我们了解一下机器学习的主要任务。一般来说，我们可以把这个任务描述为：给定在现实中获取的一系列
+\series bold
+数据
+\series default
+来构建一个
+\series bold
+模型
+\series default
+，用于描述数据的具体
+\series bold
+分布
+\series default
+（这个分布指的是概率论意义上的分布。也就是说，某些数据可能出现得比较频繁，另外一些数据可能出现得比较稀少，我们需要描述什么数据比较可能出现，并且用概率来描述数据
+出现的可能性）。在这里用粗体标出了三个重要的词，下面详细介绍一下这些词的具体意义。
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+数据
+\series default
+是人们对周围发生的一些现象的数字化描述。我们在现实中获取的数据是各种各样的，比如图片（计算机使用像素的排列来表示图片，其中每个像素可表示为三个数值（即红绿蓝（R
+GB））或四个数值和透明度（RGBA））、文本（计算机使用字符串来表示文本）、音频（计算机中一个比较通用的格式是使用16bit（即65536个值）来代表声音的振
+幅，按照一定采样频率如44.1kHz来组成一段音频。）等。
+\end_layout
+
+\begin_layout Standard
+这些数据可以分成有标签的（比如电影评论的文本和文本对应的评价）和没有标签的（比如只是一段文本）。根据能够处理的数据类型，机器学习的任务大致可以分为两类：监督学习
+（Supervised Learning）和无监督学习（Unsupervised Learning）。前者指的是，我们拥有具体的数据和预测目标（标签），需要从数
+据出发构造具体的模型预测这些目标，当然模型预测越准确越好，其代表的主要任务包括回归（预测连续的值，如根据历史的气温预测未来的气温）和分类（预测离散的值，如根据图
+片预测图片描述的具体物体的类型）。后者指的是，我们只有数据，没有预测目标，需要构造具体的模型来找出数据的具体规律，其代表的主要任务包括聚类（找出相似的多组数据并
+把它们归类）。当然，实际上还有介于监督学习和无监督学习方法之间的 半监督学习（Semi-supervised Learning），这里限于篇幅，就不具体展开介绍
+。
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+模型
+\series default
+是另一个在机器学习中经常碰到的概念。大多数机器学习任务的目的可以归纳为得到一个模型，用这个模型来描述给定的数据。得到这个模型的过程称之为机器学习模型的训练过程。
+从概率论的角度说，我们可以认为机器学习模型是一个
+\series bold
+概率分布 
+\begin_inset Formula $P_{\theta}(X)$
+\end_inset
+
+
+\series default
+（这里以概率密度函数来代表概率分布），其中 
+\begin_inset Formula $X$
+\end_inset
+
+ 是训练数据，这个概率分布拥有参数
+\begin_inset Formula $\boldsymbol{\theta}=\left(\theta_{1},\theta_{2},\cdots,\theta_{n}\right)$
+\end_inset
+
+（这个参数可以是一个或多个，我们用粗体字母来代表所有的参数 ，
+\begin_inset Formula $n$
+\end_inset
+
+代表参数的个数）。
+\end_layout
+
+\begin_layout Standard
+机器学习的任务就是求最优参数
+\begin_inset Formula $\boldsymbol{\theta_{t}}$
+\end_inset
+
+使得概率分布
+\begin_inset Formula $\boldsymbol{P_{\theta}(X)}$
+\end_inset
+
+最大。我们可以用式
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:2.1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+来代表这个过程，其中
+\begin_inset Formula $argmax$
+\end_inset
+
+函数代表的是取参数使得数据的概率密度最大。求解最优参数
+\begin_inset Formula $\boldsymbol{\theta_{t}}$
+\end_inset
+
+的过程，我们称之为模型的训练过程（Training），用来训练这个模型的数据集称之为
+\series bold
+训练集
+\series default
+（Training Set），由此得到的模型就可以用来做相应的预测。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\boldsymbol{\theta_{t}=}\underset{\theta}{argmax}\,\boldsymbol{P_{\theta}(X)}\label{eq:2.1}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+由于用于机器学习的训练集通常有很多条具体数据，我们可以把训练数据 
+\begin_inset Formula $\boldsymbol{X}$
+\end_inset
+
+拆成单条数据的集合，即
+\begin_inset Formula $\boldsymbol{X=\boldsymbol{(X_{1,}X_{2,}\cdots,X_{n})}}$
+\end_inset
+
+，其中
+\begin_inset Formula $n$
+\end_inset
+
+为数据的总数目，
+\begin_inset Formula $X$
+\end_inset
+
+为数据的
+\series bold
+批次
+\series default
+（batch），
+\begin_inset Formula $X$
+\end_inset
+
+的子集称之为数据的
+\series bold
+迷你批次
+\series default
+（mini-batch）。假设训练数据的单条数据之间相互独立，我们可以把式
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:2.1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+进一步展开成式
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:2.2"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+。需要注意的是，这里把对于独立单条数据的乘积取对数变成了求概率的对数的和，该方法是机器学习推导公式时经常使用的一个方法，我们把整体的求解最优参数
+\begin_inset Formula $\boldsymbol{\theta_{t}}$
+\end_inset
+
+的过程称之为
+\series bold
+极大似然估计
+\series default
+（Maximum LikeIihood Estimation，MLE）。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\boldsymbol{\theta_{t}=}\underset{\theta}{argmax}\,\boldsymbol{\underset{i}{\prod}P_{\theta}(X_{i})=\underset{\theta}{argmax}\,\boldsymbol{\underset{i}{\sum}log{P_{\theta}(X_{i})}}}\label{eq:2.2}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+机器模型的类型
+\end_layout
+
+\begin_layout Standard
+以上的机器学习理论适用于所有的机器学习，包括监督学习和无监督学习。对于监督学习来说，我们面对的训练集包含输入的数据
+\begin_inset Formula $X$
+\end_inset
+
+及其对应的标签
+\begin_inset Formula $Y$
+\end_inset
+
+。所以我们应该求的是包含了
+\begin_inset Formula $X$
+\end_inset
+
+和
+\begin_inset Formula $Y$
+\end_inset
+
+的一个概率分布。根据概率论的知识可以知道，对应的概率分布（这里均以对应的概率密度函数来指代分布）有两种，即联合概率分布（Joint Distribution）
+\begin_inset Formula $P_{\theta}(X,Y)$
+\end_inset
+
+和条件概率分布（Conditional Distribution）
+\begin_inset Formula $P_{\theta}(Y|X)$
+\end_inset
+
+。即，前者表示的是数据和标签共同出现的概率，后者表示的是在给定数据的条件下，对应标签的概率。
+\end_layout
+
+\begin_layout Standard
+根据描述的概率分布，我们也可以把监督学习的机器学习模型分成两类：生成式模型（Generative Model）和判别式模型（Discriminative
+ Model），前者基于的是联合概率分布，后者基于的是条件概率分布。生成式模型代表性的有朴素贝叶斯（Naive Bayes，NB）和隐马尔可夫模型（Hidden
+ Markov Model，HMM）等，判别式模型中具有代表性的有逻辑斯蒂回归（Logistic Regression，LR）和条件随机场（Conditiona
+l Random Fields，CRF）等。
+\end_layout
+
+\begin_layout Standard
+除了概率分布形式上的区别，这两类模型在许多方面都有区别。生成式模型除了能够根据输入数据
+\begin_inset Formula $X$
+\end_inset
+
+来预测对应的标签
+\begin_inset Formula $Y$
+\end_inset
+
+，还能根据训练得到的模型产生服从训练数据集分布的数据
+\begin_inset Formula $(X,Y)$
+\end_inset
+
+，相当于生成一组新的数据，这个也就是名称中的生成式模型的来源。相对而言，判别式模型就仅能根据具体的数据
+\begin_inset Formula $X$
+\end_inset
+
+来预测对应的标签
+\begin_inset Formula $Y$
+\end_inset
+
+。一般来说，牺牲了生成数据的能力，判别式模型获取的是比生成式模型高的预测准确率。至于为什么判别式模型的预测准确率高，我们可以通过全概率公式和信息熵公式来说明这个
+问题。首先看一下全概率公式
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:2.3"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+。我们可以看到，相对于条件概率，在计算联合概率的时候引入了输入数据的概率分布
+\begin_inset Formula $P(X)$
+\end_inset
+
+，而这并不是我们关心的（我们只关心给定
+\begin_inset Formula $X$
+\end_inset
+
+的情况下
+\begin_inset Formula $Y$
+\end_inset
+
+的分布），于是这就相对削弱了模型的预测能力。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+P(X,Y)=\int P(Y|X)P(X)dX\label{eq:2.3}
+\end{equation}
+
+\end_inset
+
+
 \end_layout
 
 \end_body
