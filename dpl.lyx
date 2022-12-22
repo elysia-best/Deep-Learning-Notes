@@ -1854,5 +1854,264 @@ P(X,Y)=\int P(Y|X)P(X)dX\label{eq:2.3}
 
 \end_layout
 
+\begin_layout Subsection
+损失函数以及模型的拟合
+\end_layout
+
+\begin_layout Standard
+有了关于极大似然估计和监督学习的一些知识后，我们可以进一步考虑一个问题：
+\series bold
+如何优化机器学习模型
+\series default
+？
+\end_layout
+
+\begin_layout Standard
+让我们首先从回归模型（Regression）出发。所谓回归模型，可以简单地认为拟合一个函数
+\begin_inset Formula $f_{\theta}(x)$
+\end_inset
+
+.
+ 给定输入的值
+\begin_inset Formula $\boldsymbol{X_{i}}$
+\end_inset
+
+，给出对应的目标值
+\begin_inset Formula $\boldsymbol{Y_{i}}$
+\end_inset
+
+， 其中 
+\begin_inset Formula $θ$
+\end_inset
+
+是需要训练的参数。假设我们的噪声，也就是模型的预测值和对应目标值差值 
+\begin_inset Formula $\boldsymbol{f_{\theta}(X_{i})-Y_{i}}$
+\end_inset
+
+服从正态分布 
+\begin_inset Formula $N(0,\sigma^{2})$
+\end_inset
+
+（P.S.
+ 关于正态分布的概念及性质请参考《概率论与数理统计》一书，如图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:2.1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+所示）。这样就可以通过
+\series bold
+极大似然估计
+\series default
+的方法来计算最优的参数
+\begin_inset Formula $\boldsymbol{\theta_{t}}$
+\end_inset
+
+。整个过程的公式如式
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:2.4"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ ~式
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:2.6"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+所示，其中，式
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:2.4"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+是根据极大似然估计，代入正态分布的概率密度函数，可以最后化简得到式
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:2.5"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ 。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\boldsymbol{\theta_{t}}=\underset{\theta}{argmax}\underset{i}{\sum}log\boldsymbol{P(X_{i})}=-\underset{\theta}{argmax}\underset{i}{\sum}log\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(\boldsymbol{f_{\theta}(X_{i})-Y_{i}})^{2}}{2\sigma^{2}}}\label{eq:2.4}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\theta_{t}=\underset{\theta}{argmin}\sum_{i}\left(f_{\theta}\left(X_{i}\right)-Y_{i}\right)^{2}\label{eq:2.5}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+P_{\theta}\left(X_{i}\right)=\mathrm{e}^{-\alpha\left|f_{\theta}\left(X_{i}\right)-Y_{i}\right|};\theta_{t}=\underset{\theta}{argmin}\sum_{i}\left|f_{\theta}\left(X_{i}\right)-Y_{i}\right|\label{eq:2.6}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+这个公式意味着，在上述的假设条件下，回归模型的极大估计可以归结为求出最优的参数
+\begin_inset Formula $θ_{t}$
+\end_inset
+
+使得模型的预测值和目标值差值对于所有训练数据的平 方和最小。我们把argmin函数中需要优化的函数称之为
+\series bold
+损失函数
+\series default
+，这个损失函数被称为L2模损失函数（L2-norm Loss Function）或者方均误差函数（Mean Square Error, MSE）。我们可以看到这
+个损失函数和正态分布密切相关。当然，如果误差服从其他分布，如拉普拉斯分布（Laplacian Distribution）（如图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:2.2"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+所示），最后得到的损失函数称为L1模损失函数（L1-norm Loss Function），如式
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:2.6"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+所示。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement document
+alignment document
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename imgs/chapter2/1.png
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+正态分布
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:2.1"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement document
+alignment document
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename imgs/chapter2/2.jpg
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+拉普拉斯分布
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:2.2"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \end_body
 \end_document
