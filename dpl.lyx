@@ -46,9 +46,9 @@ escapeinside={\%*}{*)}          % if you want to add a comment within your code
 %return 0; } 
 %\end{lstlisting}
 \usepackage{hyperref}
-
-\setmainfont{MI~Lan~Pro~VF~Light}
-\setCJKmainfont{MI~Lan~Pro~VF~Light}[BoldFont={MI~Lan~Pro~VF~Medium}, ItalicFont={MI~Lan~Pro~VF~Thin}]
+\usepackage{xeCJK}
+\setmainfont{HarmonyOS_Sans_SC_Light} 
+\setCJKmainfont{HarmonyOS_Sans_SC_Light}[BoldFont={HarmonyOS_Sans_SC_Medium}, ItalicFont={HarmonyOS_Sans_SC_Thin}]
 \usepackage[UTF8,nofonts]{ctexcap}
 \end_preamble
 \options UTF8
