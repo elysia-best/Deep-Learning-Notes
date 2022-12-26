@@ -5,12 +5,12 @@
 \contentsline {subsection}{\numberline {1.2.2}机器学习的方法论}{3}{subsection.1.2.2}%
 \contentsline {subsubsection}{\numberline {1.2.2.1}案例：机器从牛顿第二定律实验中学习知识}{3}{subsubsection.1.2.2.1}%
 \contentsline {paragraph}{牛顿第二定律}{3}{paragraph*.2}%
-\contentsline {subsubsection}{\numberline {1.2.2.2}如何确定模型参数？}{5}{subsubsection.1.2.2.2}%
+\contentsline {subsubsection}{\numberline {1.2.2.2}如何确定模型参数？}{4}{subsubsection.1.2.2.2}%
 \contentsline {subsubsection}{\numberline {1.2.2.3}模型结构}{6}{subsubsection.1.2.2.3}%
 \contentsline {section}{\numberline {1.3}深度学习}{8}{section.1.3}%
 \contentsline {subsection}{\numberline {1.3.1}神经网络的基本概念}{9}{subsection.1.3.1}%
 \contentsline {subsection}{\numberline {1.3.2}深度学习的发展历程}{11}{subsection.1.3.2}%
-\contentsline {section}{\numberline {1.4}小结}{13}{section.1.4}%
+\contentsline {section}{\numberline {1.4}小结}{12}{section.1.4}%
 \contentsline {chapter}{\numberline {第二章\hspace {.3em}}深度学习概念简介}{14}{chapter.2}%
 \contentsline {section}{\numberline {2.1}机器学习基本概念}{14}{section.2.1}%
 \contentsline {subsection}{\numberline {2.1.1}机器学习的主要任务}{14}{subsection.2.1.1}%

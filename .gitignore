@@ -1,3 +1,6 @@
+# Ignore Texpad temp
+.texpadtmp
+
 # Ignore LyX backup and autosave files
 # http://www.lyx.org/
 *.lyx~
