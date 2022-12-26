@@ -47,10 +47,8 @@ escapeinside={\%*}{*)}          % if you want to add a comment within your code
 %\end{lstlisting}
 \usepackage{hyperref}
 
-\setmainfont{苹方黑体-细-简.ttf}
-\usepackage{xeCJK}
-\setCJKmainfont{苹方黑体-细-简.ttf}[BoldFont={苹方黑体-中粗-简.ttf}, ItalicFont={苹方黑体-纤细-简.ttf}]
-
+\setmainfont{MI~Lan~Pro~VF~Light}
+\setCJKmainfont{MI~Lan~Pro~VF~Light}[BoldFont={MI~Lan~Pro~VF~Medium}, ItalicFont={MI~Lan~Pro~VF~Thin}]
 \usepackage[UTF8,nofonts]{ctexcap}
 \end_preamble
 \options UTF8
